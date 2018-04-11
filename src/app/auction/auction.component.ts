@@ -11,24 +11,24 @@ export class AuctionComponent implements OnInit {
 
     private web3: any;
 
-    private beneficiary: string = 'Loading ...';
-    private raised: string = 'Loading ...';
-    private time_left: number = 0;
+    public beneficiary: string = 'Loading ...';
+    public raised: string = 'Loading ...';
+    public time_left: number = 0;
 
-    private highest_bidder: string;
-    private highest_bid: string;
+    public highest_bidder: string;
+    public highest_bid: string;
 
-    private account_balance: string = 'Loading ...';
-    private account_address: string = 'Loading ...';
+    public account_balance: string = 'Loading ...';
+    public account_address: string = 'Loading ...';
 
     private deployedContract: any;
 
-    private accounts: string[];
+    public accounts: string[];
 
-    private bid_amount: number;
-    private bid_account: string;
+    public bid_amount: number;
+    public bid_account: string;
 
-    private response: string;
+    public response: string;
 
     private simpleAuctionInstance: any;
 
