@@ -8,15 +8,18 @@ import { Web3ProviderService } from './services/web3-provider.service';
 import { AppComponent } from './app.component';
 
 import { AuctionComponent } from './auction/auction.component';
+import { AuctionMetamaskComponent } from './auction-metamask/auction-metamask.component';
 
 const routes = [
-    { path: 'auction', component: AuctionComponent }
+    { path: 'auction', component: AuctionComponent },
+    { path: 'auction-metamask', component: AuctionMetamaskComponent },
 ]
 
 @NgModule({
     declarations: [
         AppComponent,
-        AuctionComponent
+        AuctionComponent,
+        AuctionMetamaskComponent
     ],
     imports: [
         BrowserModule,

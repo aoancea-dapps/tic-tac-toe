@@ -1,0 +1,91 @@
+<div class="row">
+    <div class="column">
+        <label>Beneficiary</label>
+        <blockquote>
+            <p>
+                <em id="beneficiary">{{beneficiary}}</em>
+                <br />
+                <br />
+            </p>
+        </blockquote>
+    </div>
+    <div class="column">
+        <label>Raised</label>
+        <blockquote>
+            <p>
+                <em>
+                    <span id="raised">{{raised}}</span>
+                    <br />ETH
+                </em>
+            </p>
+        </blockquote>
+    </div>
+    <div class="column">
+        <label>Timeleft</label>
+        <blockquote>
+            <p>
+                <em id="timeleft">{{time_left}}</em>
+                <br />seconds
+            </p>
+        </blockquote>
+    </div>
+    <div class="column">
+        <label>Highest Bidder</label>
+        <blockquote>
+            <p>
+                <em>
+                    <span id="highestBidder">{{highest_bidder}}</span>
+                    <br />
+                    <span id="highestBid">{{highest_bid}}</span> ETH
+                </em>
+            </p>
+        </blockquote>
+    </div>
+    <div class="column">
+        <label>
+            Your Account
+            <label>
+                <blockquote>
+                    <p>
+                        <em id="accountAddress">{{account_address}}</em>
+                        <br />
+                        <br />
+                    </p>
+                </blockquote>
+            </label>
+        </label>
+    </div>
+    <div class="column">
+        <label>Balance</label>
+        <blockquote>
+            <p>
+                <em id="accountBalance">{{account_balance}}</em>
+                <br />ETH
+            </p>
+        </blockquote>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="column column-33">
+        <label>From Account</label>
+        <select id="bidAccount" [(ngModel)]="bid_account">
+            <option *ngFor="let account of accounts" [value]="account">{{account}}</option>
+        </select>
+    </div>
+    <div class="column column-25">
+        <label>Bid Amount</label>
+        <input type="number" id="bidAmount" placeholder="28300 ether" [(ngModel)]="bid_amount" />
+    </div>
+    <div class="column column-25">
+        <label>
+            <br />
+        </label>
+        <button id="makeBid" [disabled]='time_left <= 0' (click)="bid()">Bid</button>
+    </div>
+</div>
+<hr />
+<button id="endAuction" [disabled]='time_left > 0' (click)="endAuction()">End Auction</button>
+<br />
+<br />
+<div id="response">{{response}}</div>
