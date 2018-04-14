@@ -9,17 +9,20 @@ import { AppComponent } from './app.component';
 
 import { AuctionComponent } from './auction/auction.component';
 import { AuctionMetamaskComponent } from './auction-metamask/auction-metamask.component';
+import { RaiseFundsComponent } from './raise-funds/raise-funds.component';
 
 const routes = [
     { path: 'auction', component: AuctionComponent },
     { path: 'auction-metamask', component: AuctionMetamaskComponent },
+    { path: 'raise-funds', component: RaiseFundsComponent },
 ]
 
 @NgModule({
     declarations: [
         AppComponent,
         AuctionComponent,
-        AuctionMetamaskComponent
+        AuctionMetamaskComponent,
+        RaiseFundsComponent
     ],
     imports: [
         BrowserModule,

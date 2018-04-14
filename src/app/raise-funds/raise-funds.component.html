@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="column">
+        <label>Beneficiary</label>
+        <blockquote>
+            <p>
+                <em>{{beneficiary}}</em>
+                <br />
+                <br />
+            </p>
+        </blockquote>
+    </div>
+    <div class="column">
+        <label>Raised</label>
+        <blockquote>
+            <p>
+                <em>
+                    <span>{{raised}}</span>
+                    <br />ETH
+                </em>
+            </p>
+        </blockquote>
+    </div>
+
+
+
+    <div class="column">
+        <label>
+            Your Account
+            <label>
+                <blockquote>
+                    <p>
+                        <em>{{account_address}}</em>
+                        <br />
+                        <br />
+                    </p>
+                </blockquote>
+            </label>
+        </label>
+    </div>
+    <div class="column">
+        <label>Your Balance</label>
+        <blockquote>
+            <p>
+                <em>{{account_balance}}</em>
+                <br />ETH
+            </p>
+        </blockquote>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="column column-25">
+        <label>Transfer ETH</label>
+        <input type="number" placeholder="1 ether" [(ngModel)]="amount" />
+    </div>
+    <div class="column column-25">
+        <label>
+            <br />
+        </label>
+        <button (click)="transfer()">Transfer</button>
+    </div>
+</div>
+<br />
+<br />
+<div id="response">{{response}}</div>
