@@ -10,11 +10,13 @@ import { AppComponent } from './app.component';
 import { AuctionComponent } from './auction/auction.component';
 import { AuctionMetamaskComponent } from './auction-metamask/auction-metamask.component';
 import { RaiseFundsComponent } from './raise-funds/raise-funds.component';
+import { TicTacToeStage1Component } from './tic-tac-toe-stage-1/tic-tac-toe-stage-1.component';
 
 const routes = [
     { path: 'auction', component: AuctionComponent },
     { path: 'auction-metamask', component: AuctionMetamaskComponent },
     { path: 'raise-funds', component: RaiseFundsComponent },
+    { path: 'tic-tac-toe-stage-1', component: TicTacToeStage1Component },
 ]
 
 @NgModule({
@@ -22,7 +24,8 @@ const routes = [
         AppComponent,
         AuctionComponent,
         AuctionMetamaskComponent,
-        RaiseFundsComponent
+        RaiseFundsComponent,
+        TicTacToeStage1Component
     ],
     imports: [
         BrowserModule,
