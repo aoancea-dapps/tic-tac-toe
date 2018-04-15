@@ -3,6 +3,44 @@ This is a tic-tac-toe game developed on top of Ethereum blockchain. To achieve f
 - Smart contracts - Ropsten test net
 - Web UI - IPFS
 
+### Features
+- First version will be 3x3, but then expanding to 4x4, 5x5 and beyond
+- The game should be only played in multiplayer
+- After each game, the winner is incentivices with TTTP(Tic-Tac-Toe Points) and TTTT(Tic-Tac-Toe Tokens) depending on oponents power and win score
+- TTTP(Tic-Tac-Toe Points) - are used to hold a player's playing power and is used in the match-making process
+- TTTT(Tic-Tac-Toe Tokens) - are used to buy several items in the game(you can buy more time, reduce the time of the other player between rounds, or buy other kinds of perks I can't think of now)
+- Match-Making system implemented by a Smart Contract which joins players together based on their TTTP
+- `Match-Making Start Contract` also issues `topic token` for Whisper connection in full darkness
+- Chat is also available for players to communicate if they want
+- Each player can set a name which might be saved on another smart contract - this consumes TTTT(you can also update it)
+
+### Approach
+Below are two approaches for implementation and we'll try each one to see how they behave to get an in depth understanding of the underlying infrastructure and the pros/cons of each approach
+
+#### Version 1
+1. whole logic of the game is stored inside a smart contract and every time a move is made, a transaction confirms that move and saves the state
+2. Communication between nodes is done via Whisper using full darkness
+3. Full darkness is achieved by way of communicating via a private topic between the two players which is issues by the `Match-Making Smart Contract`
+4. Nodes Communicate between each other the following:
+    - State of the game
+    - When each players makes a move
+    - When the game is over and they have to send in the result to the blockchain
+    - When they want to communicate on the chat
+    - When the time is increased/decreased of self/oponent via buying it with TTTT
+    - etc
+
+#### Version 2
+1. Instead of sending each transaction, we only send the state of the game when the game is over - checking that players did not cheat is done via both players sending the state of the board thus if either changed it in their favor we will spot it - this will also remove the need to approve each transation via MetaMask and will also not slow down the game as transactions take a while on the Ropsten test net unlike a local private net where they are almost instant
+2. Communication between nodes is done via Whisper using full darkness
+3. Full darkness is achieved by way of communicating via a private topic between the two players which is issues by the `Match-Making Smart Contract`
+4. Nodes Communicate between each other the following:
+    - State of the game
+    - When each players makes a move
+    - When the game is over and they have to send in the result to the blockchain
+    - When they want to communicate on the chat
+    - When the time is increased/decreased of self/oponent via buying it with TTTT
+    - etc
+
 ### Stages of implementation
 Implementation is done in several stages to achive faster feedback from an almost complete game. Each stage should be playable while the next stage adds new features
 
