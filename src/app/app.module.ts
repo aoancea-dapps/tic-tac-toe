@@ -7,25 +7,30 @@ import { Web3ProviderService } from './services/web3-provider.service';
 
 import { AppComponent } from './app.component';
 
+import { NavigationPageComponent } from './navigation-page/navigation-page.component';
 import { AuctionComponent } from './auction/auction.component';
 import { AuctionMetamaskComponent } from './auction-metamask/auction-metamask.component';
 import { RaiseFundsComponent } from './raise-funds/raise-funds.component';
 import { TicTacToeStage1Component } from './tic-tac-toe-stage-1/tic-tac-toe-stage-1.component';
 
 const routes = [
+    { path: 'navigation-page', component: NavigationPageComponent },
     { path: 'auction', component: AuctionComponent },
     { path: 'auction-metamask', component: AuctionMetamaskComponent },
     { path: 'raise-funds', component: RaiseFundsComponent },
     { path: 'tic-tac-toe-stage-1', component: TicTacToeStage1Component },
+
+    { path: '', redirectTo: '/navigation-page', pathMatch: "full" }
 ]
 
 @NgModule({
     declarations: [
         AppComponent,
+        NavigationPageComponent,
         AuctionComponent,
         AuctionMetamaskComponent,
         RaiseFundsComponent,
-        TicTacToeStage1Component
+        TicTacToeStage1Component,
     ],
     imports: [
         BrowserModule,
