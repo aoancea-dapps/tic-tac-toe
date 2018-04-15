@@ -1,3 +1,17 @@
+## Tic-Tac-Toe
+This is a tic-tac-toe game developed on top of Ethereum blockchain. To achieve full decentralization, deployment is done in two areas:
+- Smart contracts - Ropsten test net
+- Web UI - IPFS
+
+### Stages of implementation
+- single player on local
+- single player on MetaMask(Ropsten)
+- multi players on local - 2 instances of the game opened and you select in each browser the account with which you want to play
+- multi players on MetaMask(Ropsten)
+
+### Experimental communication between player - Whisper protocol
+- we might be able to achive cross-player communication using the Whisper protocol by using `web3.shh`
+
 ## Simple Auction(not the actual game but a test before starting on it)
 Here we test the deployment to IPFS of https://github.com/aoancea/dapps-auction-angular-client. It's a test to see if and how a dapp needs to be deployed in order to also work properly
 
