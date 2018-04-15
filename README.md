@@ -1,8 +1,9 @@
-# tic-tac-toe
+# Simple Auction(not the actual game but a test before starting on it)
+Here we test the deployment to IPFS of https://github.com/aoancea/dapps-auction-angular-client. It's a test to see if and how a dapp needs to be deployed in order to also work properly
 
+#### Installation steps
 - Install ganache-cli for desktop and run it with 5-10 accounts on http://127.0.0.1:7545
-- Running currently on https://gateway.ipfs.io/ipfs/QmQqNmXSWU2c3BxyeZfiHG6S5GngHUqznh8XtFyXMyyvtH
-
+- Navigate to https://gateway.ipfs.io/ipfs/QmQqNmXSWU2c3BxyeZfiHG6S5GngHUqznh8XtFyXMyyvtH
 
 ## Raise funds app(not the actual game but a test before starting on it)
 This is a simple page that tries to implement a crowdfunding campain. You are able to transfer money to my account through a smart contract using MetaMask connected to the Ropsten public test net.
