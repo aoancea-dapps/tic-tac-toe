@@ -5,19 +5,20 @@
 
 <div class="game-table">
     <div class='line'>
-        <div class="box">0</div>
-        <div class="box">0</div>
-        <div class="box">0</div>
+        <div class="box" (click)="clickBox(0)">{{boxValues[0]}}</div>
+        <div class="box" (click)="clickBox(1)">{{boxValues[1]}}</div>
+        <div class="box" (click)="clickBox(2)">{{boxValues[2]}}</div>
     </div>
 
     <div class='line'>
-        <div class="box">1</div>
-        <div class="box">0</div>
-        <div class="box">1</div>
+        <div class="box" (click)="clickBox(3)">{{boxValues[3]}}</div>
+        <div class="box" (click)="clickBox(4)">{{boxValues[4]}}</div>
+        <div class="box" (click)="clickBox(5)">{{boxValues[5]}}</div>
     </div>
+
     <div class='line'>
-        <div class="box">1</div>
-        <div class="box">1</div>
-        <div class="box">0</div>
+        <div class="box" (click)="clickBox(6)">{{boxValues[6]}}</div>
+        <div class="box" (click)="clickBox(7)">{{boxValues[7]}}</div>
+        <div class="box" (click)="clickBox(8)">{{boxValues[8]}}</div>
     </div>
 </div>

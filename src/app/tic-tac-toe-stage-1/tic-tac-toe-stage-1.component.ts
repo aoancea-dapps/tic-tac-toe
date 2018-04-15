@@ -1,15 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-tic-tac-toe-stage-1',
-  templateUrl: './tic-tac-toe-stage-1.component.html',
-  styleUrls: ['./tic-tac-toe-stage-1.component.less']
+    selector: 'app-tic-tac-toe-stage-1',
+    templateUrl: './tic-tac-toe-stage-1.component.html',
+    styleUrls: ['./tic-tac-toe-stage-1.component.less']
 })
 export class TicTacToeStage1Component implements OnInit {
 
-  constructor() { }
+    public boxValues: string[] = ['', '', '', '', '', '', '', '', ''];
 
-  ngOnInit() {
-  }
+    constructor() {
 
+    }
+
+    ngOnInit() {
+
+    }
+
+    clickBox(index): void {
+        console.log('box ' + (parseInt(index) + 1) + ' clicked!');
+    }
 }
