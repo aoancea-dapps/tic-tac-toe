@@ -6,8 +6,17 @@ This is a tic-tac-toe game developed on top of Ethereum blockchain. To achieve f
 ### Stages of implementation
 - single player on local
 - single player on MetaMask(Ropsten)
-- multi players on local - 2 instances of the game opened and you select in each browser the account with which you want to play
-- multi players on MetaMask(Ropsten)
+- multiplayer on local - 2 instances of the game opened and you select in each browser the account with which you want to play
+- multiplayer on MetaMask(Ropsten)
+
+#### Stage 1 - Single player - Ganache desktop test net
+- in progress
+#### Stage 2 - Single player - MetaMask Ropsten test net
+- not started
+#### Stage 3 - Multi player - Ganache desktop test net
+- not started
+#### Stage 4 - Multi player - MetaMask Ropsten test net
+- not started
 
 ### Experimental communication between player - Whisper protocol
 - we might be able to achive cross-player communication using the Whisper protocol by using `web3.shh`
