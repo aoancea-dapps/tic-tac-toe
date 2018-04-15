@@ -6,7 +6,7 @@ This is a tic-tac-toe game developed on top of Ethereum blockchain. To achieve f
 ### Features
 - First version will be 3x3, but then expanding to 4x4, 5x5 and beyond
 - The game should be only played in multiplayer
-- After each game, the winner is incentivices with TTTP(Tic-Tac-Toe Points) and TTTT(Tic-Tac-Toe Tokens) depending on oponents power and win score
+- After each game, the winner is incentivised  with TTTP(Tic-Tac-Toe Points) and TTTT(Tic-Tac-Toe Tokens) depending on oponents power and win score
 - TTTP(Tic-Tac-Toe Points) - are used to hold a player's playing power and is used in the match-making process
 - TTTT(Tic-Tac-Toe Tokens) - are used to buy several items in the game(you can buy more time, reduce the time of the other player between rounds, or buy other kinds of perks I can't think of now)
 - Match-Making system implemented by a Smart Contract which joins players together based on their TTTP
