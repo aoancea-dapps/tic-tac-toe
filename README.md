@@ -4,10 +4,7 @@ This is a tic-tac-toe game developed on top of Ethereum blockchain. To achieve f
 - Web UI - IPFS
 
 ### Stages of implementation
-- single player on local
-- single player on MetaMask(Ropsten)
-- multiplayer on local - 2 instances of the game opened and you select in each browser the account with which you want to play
-- multiplayer on MetaMask(Ropsten)
+Implementation is done in several stages to achive faster feedback from an almost complete game. Each stage should be playable while the next stage adds new features
 
 #### Stage 1 - Single player - Ganache desktop test net - in progress
 Run a test net locally and play against the computer
