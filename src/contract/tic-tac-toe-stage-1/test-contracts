@@ -1,0 +1,382 @@
+pragma solidity ^ 0.4.16;
+
+contract TestContract {
+    
+    struct Box {
+        string box11;
+        string box12;
+        string box21;
+        string box22;
+    }
+    
+    mapping(uint => Box) public gameStates;
+    
+    mapping(uint => string) gameState;
+    
+    
+    struct Board {
+
+        Box state;
+    }
+    
+    mapping (uint => Board) gameBoardStates;
+    
+    
+    function TestContract () public {
+        Box memory box1 = Box("X", "O", "X", "X");
+        Box memory box2 = Box("O", "X", "O", "O");
+        gameStates[0] = box1;
+        gameStates[1] = box2;
+        
+        
+        gameState[0] = "X";
+        gameState[1] = "X";
+        gameState[2] = "0";
+        gameState[3] = "X";
+        
+        
+        
+        Board memory board1 = Board(Box("A","B","S","F"));
+        Board memory board2 = Board(Box("W","E","A","G"));
+        
+        gameBoardStates[0] = board1;
+        gameBoardStates[1] = board2;
+    }
+    
+    function getGameState(uint index) public constant returns (string, string, string, string) {
+        return (gameStates[index].box11, gameStates[index].box12, gameStates[index].box21, gameStates[index].box22);
+    }
+    
+    function getGameStateV2() public constant returns (string, string, string, string) {
+        return (gameState[0], gameState[1], gameState[2], gameState[3]);
+    }
+    
+    
+    function getGameBoardState(uint index) public constant returns (string, string, string, string) {
+        return (gameBoardStates[index].state.box11, gameBoardStates[index].state.box12, gameBoardStates[index].state.box21, gameBoardStates[index].state.box22);
+    }
+    
+    function changeGameBoardState(uint index, uint boxIndex, string stateValue) public constant returns (string, string, string, string) {
+        Board board = gameBoardStates[index];
+        
+        if(boxIndex == 0){
+            board.state.box11 = stateValue;
+        } else if(boxIndex == 1){
+            board.state.box12 = stateValue;
+        }else if(boxIndex == 2){
+            board.state.box21 = stateValue;
+        }else if(boxIndex == 3){
+            board.state.box22 = stateValue;
+        }
+        
+        return (board.state.box11, board.state.box12, board.state.box21, board.state.box22);
+    }
+    
+    function getMessage() public returns(string) {
+        return "lalalla";
+    }
+}
+
+
+
+pragma solidity ^ 0.4.16;
+
+contract TicTacToeStage1Contract {
+
+    struct Board3x3State {
+        string box11;
+        string box12;
+        string box13;
+
+        string box21;
+        string box22;
+        string box23;
+
+        string box31;
+        string box32;
+        string box33;
+    }
+
+    struct Board {
+        address win;
+
+        mapping (uint => string) state;
+        mapping (address => string) player_value;
+    }
+
+    mapping (address => address) p1_to_p2;
+    mapping (address => address) p2_to_p1;
+
+    mapping (address => Board) gameStates;
+
+    //mapping (string => string) games;
+    //mapping (string => string) gameStates;
+
+    function SimpleAuction () public {
+    }
+
+
+    function startGame(address player1, address player2) public returns(string) {
+        p1_to_p2[player1] = player2;
+        p2_to_p1[player2] = player1;
+
+        gameStates[player1] = Board({win: address(0)});
+        gameStates[player2] = gameStates[player1];
+
+        Board storage board = gameStates[player1];
+        board.player_value[player1] = "X";
+        board.player_value[player2] = "0";
+        
+        board.state[0] = '.';
+        board.state[1] = '.';
+        board.state[2] = '.';
+        
+        board.state[3] = '.';
+        board.state[4] = '.';
+        board.state[5] = '.';
+        
+        board.state[6] = '.';
+        board.state[7] = '.';
+        board.state[8] = '.';
+
+        // player_value[player1] = "X";
+        // player_value[player2] = "0";
+
+        // var player1AsString = toString(player1);
+        // var player2AsString = toString(player2);
+
+        // var gameIndex = strConcat(player1AsString, player2AsString);
+        // games[gameIndex] = "";
+        // gameStates[gameIndex] = "aaabbbccc";
+        
+        return strConcat(strConcat(board.state[0], board.state[1], board.state[2], board.state[3], board.state[4]), strConcat(board.state[5], board.state[6], board.state[7], board.state[8]));
+    }
+
+    function sendPick(address player, uint boxIndex) public returns (string) {
+        address adversary = p2_to_p1[player];
+
+        if(adversary == address(0))
+            adversary = p1_to_p2[player];
+
+        Board storage board = gameStates[player];
+        string player_value = board.player_value[player];
+
+        board.state[boxIndex] = player_value;
+        
+       return strConcat(strConcat(board.state[0], board.state[1], board.state[2], board.state[3], board.state[4]), strConcat(board.state[5], board.state[6], board.state[7], board.state[8]));
+    }
+
+
+    function strConcat(string _a, string _b, string _c, string _d, string _e) internal returns (string) {
+        bytes memory _ba = bytes(_a);
+        bytes memory _bb = bytes(_b);
+        bytes memory _bc = bytes(_c);
+        bytes memory _bd = bytes(_d);
+        bytes memory _be = bytes(_e);
+        string memory abcde = new string(_ba.length + _bb.length + _bc.length + _bd.length + _be.length);
+        bytes memory babcde = bytes(abcde);
+        uint k = 0;
+        for (uint i = 0; i < _ba.length; i++) babcde[k++] = _ba[i];
+        for (i = 0; i < _bb.length; i++) babcde[k++] = _bb[i];
+        for (i = 0; i < _bc.length; i++) babcde[k++] = _bc[i];
+        for (i = 0; i < _bd.length; i++) babcde[k++] = _bd[i];
+        for (i = 0; i < _be.length; i++) babcde[k++] = _be[i];
+        return string(babcde);
+    }
+
+    function strConcat(string _a, string _b, string _c, string _d) internal returns (string) {
+        return strConcat(_a, _b, _c, _d, "");
+    }
+
+    function strConcat(string _a, string _b, string _c) internal returns (string) {
+        return strConcat(_a, _b, _c, "", "");
+    }
+
+    function strConcat(string _a, string _b) internal returns (string) {
+        return strConcat(_a, _b, "", "", "");
+    }
+
+    function toString(address x) internal returns (string) {
+        bytes memory b = new bytes(20);
+        for (uint i = 0; i < 20; i++)
+            b[i] = byte(uint8(uint(x) / (2**(8*(19 - i)))));
+        return string(b);
+    }
+}
+
+return (board.state[0], board.state[1], board.state[2], board.state[3], board.state[4], board.state[5], board.state[6], board.state[7], board.state[8]);
+
+
+pragma solidity ^ 0.4.4;
+pragma experimental ABIEncoderV2;
+
+contract TestContract {
+    
+    struct Box {
+        string box11;
+        string box12;
+        string box21;
+        string box22;
+    }
+    
+    mapping(uint => Box) public gameStates;
+    
+    function TestContract () public {
+        Box memory box1 = Box("X", "O", "X", "X");
+        Box memory box2 = Box("O", "X", "O", "O");
+        gameStates[0] = box1;
+        gameStates[1] = box2;
+    }
+    
+    function getGameState(uint index) public constant returns (string, string, string, string) {
+        return (gameStates[index].box11, gameStates[index].box12, gameStates[index].box21, gameStates[index].box22);
+    }
+    
+    function getMessage() public returns(string) {
+        return "lalalla";
+    }
+}
+
+
+pragma solidity ^ 0.4.4;
+pragma experimental ABIEncoderV2;
+
+contract TestContract {
+    
+    struct Box {
+        string box11;
+        string box12;
+        string box21;
+        string box22;
+    }
+    
+    mapping(uint => Box) public gameStates;
+    
+    mapping(uint => string) gameState;
+    
+    function TestContract () public {
+        Box memory box1 = Box("X", "O", "X", "X");
+        Box memory box2 = Box("O", "X", "O", "O");
+        gameStates[0] = box1;
+        gameStates[1] = box2;
+        
+        
+        gameState[0] = "X";
+        gameState[1] = "X";
+        gameState[2] = "0";
+        gameState[3] = "X";
+    }
+    
+    function getGameState(uint index) public constant returns (string, string, string, string) {
+        return (gameStates[index].box11, gameStates[index].box12, gameStates[index].box21, gameStates[index].box22);
+    }
+    
+    function getGameStateV2() public constant returns (string, string, string, string) {
+        return (gameState[0], gameState[1], gameState[2], gameState[3]);
+    }
+    
+    function getMessage() public returns(string) {
+        return "lalalla";
+    }
+}
+
+
+
+--------------------------fail-------------------------
+pragma solidity ^ 0.4.16;
+contract TestContract {
+    
+    mapping (uint => string) gameState;
+    
+    function TestContract () public {
+        gameState[0] = "X";
+        gameState[1] = "X";
+        gameState[2] = "X";
+        
+        gameState[3] = "X";
+        gameState[4] = "X";
+        gameState[5] = "X";
+        
+        gameState[6] = "X";
+        gameState[7] = "X";
+        gameState[8] = "X";
+    }
+    
+    function getString() public returns(string) {
+        
+        bytes memory arrGameState = new bytes(9);
+        arrGameState[0] = gameState[0];
+        arrGameState[1] = gameState[1];
+        arrGameState[2] = gameState[2];
+        
+        arrGameState[3] = gameState[3];
+        arrGameState[4] = gameState[4];
+        arrGameState[5] = gameState[5];
+        
+        arrGameState[6] = gameState[6];
+        arrGameState[7] = gameState[7];
+        arrGameState[8] = gameState[8];
+        
+    }
+}
+
+
+pragma solidity ^ 0.4.4;
+contract TestContract {
+    
+    //mapping (uint => uint) gameState;
+    
+    uint[] gameState = new uint[](9);
+    
+    function TestContract () public {
+        //gameState[0] = 1;
+        //gameState[1] = 1;
+        //gameState[2] = 1;
+        
+        //gameState[3] = 1;
+        //gameState[4] = 1;
+        //gameState[5] = 1;
+        
+        //gameState[6] = 1;
+        //gameState[7] = 1;
+        //gameState[8] = 1;
+        
+        gameState[0] = 1;
+        gameState[1] = 2;
+        gameState[2] = 3;
+        
+        gameState[3] = 4;
+        gameState[4] = 5;
+        gameState[5] = 6;
+        
+        gameState[6] = 7;
+        gameState[7] = 8;
+        gameState[8] = 9;
+    }
+    
+    function getString() public constant returns (string str) {
+        
+        //uint memory arrGameState = new uint(9);
+        //arrGameState[0] = gameState[0];
+        //arrGameState[1] = gameState[1];
+        //arrGameState[2] = gameState[2];
+        
+        //arrGameState[3] = gameState[3];
+        //arrGameState[4] = gameState[4];
+        //arrGameState[5] = gameState[5];
+        
+        //arrGameState[6] = gameState[6];
+        //arrGameState[7] = gameState[7];
+        //arrGameState[8] = gameState[8];
+        
+        bytes memory arrGameState = new bytes(100);
+        arrGameState[0] = byte(48 + 1);
+        arrGameState[1] = byte(48 + 1);
+        
+        str = string(arrGameState);
+    }
+    
+    function getMessage() public returns(string) {
+        return "lalalla";
+    }
+}
