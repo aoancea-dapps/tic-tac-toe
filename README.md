@@ -20,7 +20,7 @@ Below are two approaches for implementation and we'll try each one to see how th
 #### Version 1
 1. whole logic of the game is stored inside a smart contract and every time a move is made, a transaction confirms that move and saves the state
 2. Communication between nodes is done via Whisper using full darkness
-3. Full darkness is achieved by way of communicating via a private topic between the two players which is issues by the `Match-Making Smart Contract`
+3. Full darkness is achieved by way of communicating via a private topic between the two players which is issued by the `Match-Making Smart Contract`
 4. Nodes Communicate between each other the following:
     - State of the game
     - When each players makes a move
@@ -32,7 +32,7 @@ Below are two approaches for implementation and we'll try each one to see how th
 #### Version 2
 1. Instead of sending each transaction, we only send the state of the game when the game is over - checking that players did not cheat is done via both players sending the state of the board thus if either changed it in their favor we will spot it - this will also remove the need to approve each transation via MetaMask and will also not slow down the game as transactions take a while on the Ropsten test net unlike a local private net where they are almost instant
 2. Communication between nodes is done via Whisper using full darkness
-3. Full darkness is achieved by way of communicating via a private topic between the two players which is issues by the `Match-Making Smart Contract`
+3. Full darkness is achieved by way of communicating via a private topic between the two players which is issued by the `Match-Making Smart Contract`
 4. Nodes Communicate between each other the following:
     - State of the game
     - When each players makes a move
