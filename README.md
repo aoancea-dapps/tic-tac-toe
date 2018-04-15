@@ -1,4 +1,4 @@
-# Simple Auction(not the actual game but a test before starting on it)
+## Simple Auction(not the actual game but a test before starting on it)
 Here we test the deployment to IPFS of https://github.com/aoancea/dapps-auction-angular-client. It's a test to see if and how a dapp needs to be deployed in order to also work properly
 
 #### Installation steps
