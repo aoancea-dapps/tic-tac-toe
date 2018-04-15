@@ -18,7 +18,7 @@ This is a tic-tac-toe game developed on top of Ethereum blockchain. To achieve f
 Below are two approaches for implementation and we'll try each one to see how they behave to get an in depth understanding of the underlying infrastructure and the pros/cons of each approach
 
 #### Version 1
-1. whole logic of the game is stored inside a smart contract and every time a move is made, a transaction confirms that move and saves the state
+1. Whole logic of the game is stored inside a smart contract and every time a move is made, a transaction confirms that move and saves the state
 2. Communication between nodes is done via Whisper using full darkness
 3. Full darkness is achieved by way of communicating via a private topic between the two players which is issued by the `Match-Making Smart Contract`
 4. Nodes Communicate between each other the following:
