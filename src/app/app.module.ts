@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 import { Web3ProviderService } from './services/web3-provider.service';
+import { TicTacToeStage1ProviderService } from './tic-tac-toe-stage-1/tic-tac-toe-stage-1-provider.service';
 
 import { AppComponent } from './app.component';
 
@@ -37,7 +38,7 @@ const routes = [
         RouterModule.forRoot(routes, { useHash: true }),
         FormsModule
     ],
-    providers: [Web3ProviderService],
+    providers: [Web3ProviderService, TicTacToeStage1ProviderService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
