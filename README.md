@@ -13,6 +13,7 @@ This is a tic-tac-toe game developed on top of Ethereum blockchain. To achieve f
 - `Match-Making Start Contract` also issues `topic token` for Whisper connection in full darkness
 - Chat is also available for players to communicate if they want
 - Each player can set a name which might be saved on another smart contract - this consumes TTTT(you can also update it)
+- Weekly or monthy leader boards? They get more points?(need to find places where to spend those new points)
 
 ### Approach
 Below are two approaches for implementation and we'll try each one to see how they behave to get an in depth understanding of the underlying infrastructure and the pros/cons of each approach
