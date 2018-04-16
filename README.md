@@ -40,6 +40,7 @@ Below are two approaches for implementation and we'll try each one to see how th
     - When they want to communicate on the chat
     - When the time is increased/decreased of self/oponent via buying it with TTTT
     - etc
+    
 5.Players who don't send in the game state in certain time period will loose both TTTT and TTTP(more than normal) - this is to counter scenarios where people are loosing a game and they do not want to loose points
 
 ### Stages of implementation
