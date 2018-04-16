@@ -41,7 +41,7 @@ Below are two approaches for implementation and we'll try each one to see how th
     - When the time is increased/decreased of self/oponent via buying it with TTTT
     - etc
     
-5.Players who don't send in the game state in certain time period will loose both TTTT and TTTP(more than normal) - this is to counter scenarios where people are loosing a game and they do not want to loose points
+5. Players who don't send in the game state in certain time period will loose both TTTT and TTTP(more than normal) - this is to counter scenarios where people are loosing a game and they do not want to loose points
 
 ### Stages of implementation
 Implementation is done in several stages to achive faster feedback from an almost complete game. Each stage should be playable while the next stage adds new features
