@@ -5,21 +5,69 @@
 
 <div class="game-table">
     <div class='line'>
-        <div class="box" (click)="clickBox(0)">{{boxValues[0]}}</div>
-        <div class="box" (click)="clickBox(1)">{{boxValues[1]}}</div>
-        <div class="box" (click)="clickBox(2)">{{boxValues[2]}}</div>
+        <div class="box" (click)="clickBox(0)">
+            <span>{{boxValues[0]}}</span>
+            <div class="horizontal-line"></div>
+            <div class="vertical-line"></div>
+
+
+            <div class="first-diagonal-line"></div>
+        </div>
+        <div class="box" (click)="clickBox(1)">
+            <span>{{boxValues[1]}}</span>
+            <div class="horizontal-line"></div>
+            <div class="vertical-line"></div>
+        </div>
+        <div class="box" (click)="clickBox(2)">
+            <span>{{boxValues[2]}}</span>
+            <div class="horizontal-line"></div>
+            <div class="vertical-line"></div>
+
+            <div class="second-diagonal-line"></div>
+        </div>
     </div>
 
     <div class='line'>
-        <div class="box" (click)="clickBox(3)">{{boxValues[3]}}</div>
-        <div class="box" (click)="clickBox(4)">{{boxValues[4]}}</div>
-        <div class="box" (click)="clickBox(5)">{{boxValues[5]}}</div>
+        <div class="box" (click)="clickBox(3)">
+            <span>{{boxValues[3]}}</span>
+            <div class="horizontal-line"></div>
+            <div class="vertical-line"></div>
+        </div>
+        <div class="box" (click)="clickBox(4)">
+            <span>{{boxValues[4]}}</span>
+            <div class="horizontal-line"></div>
+            <div class="vertical-line"></div>
+
+            <div class="first-diagonal-line"></div>
+            <div class="second-diagonal-line"></div>
+        </div>
+        <div class="box" (click)="clickBox(5)">
+            <span>{{boxValues[5]}}</span>
+            <div class="horizontal-line"></div>
+            <div class="vertical-line"></div>
+        </div>
     </div>
 
     <div class='line'>
-        <div class="box" (click)="clickBox(6)">{{boxValues[6]}}</div>
-        <div class="box" (click)="clickBox(7)">{{boxValues[7]}}</div>
-        <div class="box" (click)="clickBox(8)">{{boxValues[8]}}</div>
+        <div class="box" (click)="clickBox(6)">
+            <span>{{boxValues[6]}}</span>
+            <div class="horizontal-line"></div>
+            <div class="vertical-line"></div>
+
+            <div class="second-diagonal-line"></div>
+        </div>
+        <div class="box" (click)="clickBox(7)">
+            <span>{{boxValues[7]}}</span>
+            <div class="horizontal-line"></div>
+            <div class="vertical-line"></div>
+        </div>
+        <div class="box" (click)="clickBox(8)">
+            <span>{{boxValues[8]}}</span>
+            <div class="horizontal-line"></div>
+            <div class="vertical-line"></div>
+
+            <div class="first-diagonal-line"></div>
+        </div>
     </div>
 </div>
 

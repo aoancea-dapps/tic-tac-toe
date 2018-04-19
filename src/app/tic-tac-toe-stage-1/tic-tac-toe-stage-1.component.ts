@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { Web3ProviderService } from '../services/web3-provider.service';
 import { TicTacToeStage1ProviderService } from './tic-tac-toe-stage-1-provider.service';
-import { Z_VERSION_ERROR } from 'zlib';
 
 @Component({
     selector: 'app-tic-tac-toe-stage-1',
