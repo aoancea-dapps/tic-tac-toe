@@ -35,6 +35,9 @@ export class TicTacToeStage1Component implements OnInit {
     public showDiagonal1: boolean = false;
     public showDiagonal2: boolean = false;
 
+    public player1Won: boolean = false;
+    public player2Won: boolean = false;
+
     constructor(private web3Provider: Web3ProviderService, private ticTacToeStage1Provider: TicTacToeStage1ProviderService) {
         this.web3 = this.web3Provider.web3;
     }
@@ -60,12 +63,11 @@ export class TicTacToeStage1Component implements OnInit {
 
             self.ticTacToeStage1Instance.startGame(self.player1, self.player2, { gas: 300000 }); // failing with ERROR Error: sender account not recognized
 
-            self.updateBoard();
+            self.updateBoard(this.player1);
 
             this.isPlaying = true;
 
         }, 1000);
-
     }
 
     clickBox(index): void {
@@ -78,20 +80,20 @@ export class TicTacToeStage1Component implements OnInit {
 
         self.ticTacToeStage1Instance.sendPick(this.player1, index, { gas: 300000 });
 
-        self.updateBoard();
+        self.updateBoard(this.player1);
 
         if (this.isPlaying) {
             for (var i = 0; i < 8; ++i) {
                 if (!self.boxValues[i]) {
                     self.ticTacToeStage1Instance.sendPick(this.player2, i, { gas: 300000 });
-                    self.updateBoard();
+                    self.updateBoard(this.player2);
                     break;
                 }
             }
         }
     }
 
-    private updateBoard(): void {
+    private updateBoard(player: string): void {
         var self = this;
 
         var line1_state = self.ticTacToeStage1Instance.getLine1State(self.player1);
@@ -111,45 +113,41 @@ export class TicTacToeStage1Component implements OnInit {
         this.boxValues[8] = line3_state[2];
 
         if (this.isPlaying)
-            this.checkIfWin();
+            this.checkIfWin(player);
     }
 
-    private checkIfWin(): void {
-        var X: string = 'X';
-        var zero: string = 'O';
+    private checkIfWin(player: string): void {
+        var playerState = player == this.player1 ? 'X' : 'O';
 
-        if ((this.boxValues[0] == X && this.boxValues[1] == X && this.boxValues[2] == X)
-            || (this.boxValues[0] == zero && this.boxValues[1] == zero && this.boxValues[2] == zero)) {
+        if (this.boxValues[0] == playerState && this.boxValues[1] == playerState && this.boxValues[2] == playerState) {
             this.showLine1 = true;
             this.isPlaying = false;
-        } else if ((this.boxValues[3] == X && this.boxValues[4] == X && this.boxValues[5] == X)
-            || (this.boxValues[3] == zero && this.boxValues[4] == zero && this.boxValues[5] == zero)) {
+        } else if (this.boxValues[3] == playerState && this.boxValues[4] == playerState && this.boxValues[5] == playerState) {
             this.showLine2 = true;
             this.isPlaying = false;
-        } else if ((this.boxValues[6] == X && this.boxValues[7] == X && this.boxValues[8] == X)
-            || (this.boxValues[6] == zero && this.boxValues[7] == zero && this.boxValues[8] == zero)) {
+        } else if (this.boxValues[6] == playerState && this.boxValues[7] == playerState && this.boxValues[8] == playerState) {
             this.showLine3 = true;
             this.isPlaying = false;
-        } else if ((this.boxValues[0] == X && this.boxValues[3] == X && this.boxValues[6] == X)
-            || (this.boxValues[0] == zero && this.boxValues[3] == zero && this.boxValues[6] == zero)) {
+        } else if (this.boxValues[0] == playerState && this.boxValues[3] == playerState && this.boxValues[6] == playerState) {
             this.showColum1 = true;
             this.isPlaying = false;
-        } else if ((this.boxValues[1] == X && this.boxValues[4] == X && this.boxValues[7] == X)
-            || (this.boxValues[1] == zero && this.boxValues[4] == zero && this.boxValues[7] == zero)) {
+        } else if (this.boxValues[1] == playerState && this.boxValues[4] == playerState && this.boxValues[7] == playerState) {
             this.showColum2 = true;
             this.isPlaying = false;
-        } else if ((this.boxValues[2] == X && this.boxValues[5] == X && this.boxValues[8] == X)
-            || (this.boxValues[2] == zero && this.boxValues[5] == zero && this.boxValues[8] == zero)) {
+        } else if (this.boxValues[2] == playerState && this.boxValues[5] == playerState && this.boxValues[8] == playerState) {
             this.showColum3 = true;
             this.isPlaying = false;
-        } else if ((this.boxValues[0] == X && this.boxValues[4] == X && this.boxValues[8] == X)
-            || (this.boxValues[0] == zero && this.boxValues[4] == zero && this.boxValues[8] == zero)) {
+        } else if (this.boxValues[0] == playerState && this.boxValues[4] == playerState && this.boxValues[8] == playerState) {
             this.showDiagonal1 = true;
             this.isPlaying = false;
-        } else if ((this.boxValues[2] == X && this.boxValues[4] == X && this.boxValues[6] == X)
-            || (this.boxValues[2] == zero && this.boxValues[4] == zero && this.boxValues[6] == zero)) {
+        } else if (this.boxValues[2] == playerState && this.boxValues[4] == playerState && this.boxValues[6] == playerState) {
             this.showDiagonal2 = true;
             this.isPlaying = false;
+        }
+
+        if (!this.isPlaying) {
+            this.player1Won = this.player1 == player;
+            this.player2Won = this.player2 == player;
         }
     }
 }
