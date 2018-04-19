@@ -22,6 +22,19 @@ export class TicTacToeStage1Component implements OnInit {
     public player1: string;
     public player2: string;
 
+    public isPlaying: boolean = false;
+
+    public showLine1: boolean = false;
+    public showLine2: boolean = false;
+    public showLine3: boolean = false;
+
+    public showColum1: boolean = false;
+    public showColum2: boolean = false;
+    public showColum3: boolean = false;
+
+    public showDiagonal1: boolean = false;
+    public showDiagonal2: boolean = false;
+
     constructor(private web3Provider: Web3ProviderService, private ticTacToeStage1Provider: TicTacToeStage1ProviderService) {
         this.web3 = this.web3Provider.web3;
     }
@@ -49,11 +62,16 @@ export class TicTacToeStage1Component implements OnInit {
 
             self.updateBoard();
 
+            this.isPlaying = true;
+
         }, 1000);
 
     }
 
     clickBox(index): void {
+        if (!this.isPlaying)
+            return;
+
         console.log('box ' + (parseInt(index) + 1) + ' clicked!');
 
         var self = this;
@@ -62,11 +80,13 @@ export class TicTacToeStage1Component implements OnInit {
 
         self.updateBoard();
 
-        for (var i = 0; i < 8; ++i) {
-            if (!self.boxValues[i]) {
-                self.ticTacToeStage1Instance.sendPick(this.player2, i, { gas: 300000 });
-                self.updateBoard();
-                break;
+        if (this.isPlaying) {
+            for (var i = 0; i < 8; ++i) {
+                if (!self.boxValues[i]) {
+                    self.ticTacToeStage1Instance.sendPick(this.player2, i, { gas: 300000 });
+                    self.updateBoard();
+                    break;
+                }
             }
         }
     }
@@ -89,5 +109,47 @@ export class TicTacToeStage1Component implements OnInit {
         this.boxValues[6] = line3_state[0];
         this.boxValues[7] = line3_state[1];
         this.boxValues[8] = line3_state[2];
+
+        if (this.isPlaying)
+            this.checkIfWin();
+    }
+
+    private checkIfWin(): void {
+        var X: string = 'X';
+        var zero: string = 'O';
+
+        if ((this.boxValues[0] == X && this.boxValues[1] == X && this.boxValues[2] == X)
+            || (this.boxValues[0] == zero && this.boxValues[1] == zero && this.boxValues[2] == zero)) {
+            this.showLine1 = true;
+            this.isPlaying = false;
+        } else if ((this.boxValues[3] == X && this.boxValues[4] == X && this.boxValues[5] == X)
+            || (this.boxValues[3] == zero && this.boxValues[4] == zero && this.boxValues[5] == zero)) {
+            this.showLine2 = true;
+            this.isPlaying = false;
+        } else if ((this.boxValues[6] == X && this.boxValues[7] == X && this.boxValues[8] == X)
+            || (this.boxValues[6] == zero && this.boxValues[7] == zero && this.boxValues[8] == zero)) {
+            this.showLine3 = true;
+            this.isPlaying = false;
+        } else if ((this.boxValues[0] == X && this.boxValues[3] == X && this.boxValues[6] == X)
+            || (this.boxValues[0] == zero && this.boxValues[3] == zero && this.boxValues[6] == zero)) {
+            this.showColum1 = true;
+            this.isPlaying = false;
+        } else if ((this.boxValues[1] == X && this.boxValues[4] == X && this.boxValues[7] == X)
+            || (this.boxValues[1] == zero && this.boxValues[4] == zero && this.boxValues[7] == zero)) {
+            this.showColum2 = true;
+            this.isPlaying = false;
+        } else if ((this.boxValues[2] == X && this.boxValues[5] == X && this.boxValues[8] == X)
+            || (this.boxValues[2] == zero && this.boxValues[5] == zero && this.boxValues[8] == zero)) {
+            this.showColum3 = true;
+            this.isPlaying = false;
+        } else if ((this.boxValues[0] == X && this.boxValues[4] == X && this.boxValues[8] == X)
+            || (this.boxValues[0] == zero && this.boxValues[4] == zero && this.boxValues[8] == zero)) {
+            this.showDiagonal1 = true;
+            this.isPlaying = false;
+        } else if ((this.boxValues[2] == X && this.boxValues[4] == X && this.boxValues[6] == X)
+            || (this.boxValues[2] == zero && this.boxValues[4] == zero && this.boxValues[6] == zero)) {
+            this.showDiagonal2 = true;
+            this.isPlaying = false;
+        }
     }
 }
