@@ -50,6 +50,11 @@ Implementation is done in several stages to achive faster feedback from an almos
 #### Stage 1 - Single player - Ganache desktop test net - in progress
 Run a test net locally and play against the computer
 
+##### Installation steps
+1. Install ganache for desktop from https://github.com/trufflesuite/ganache/releases
+1.1. This will start on port http://127.0.0.1:7545, application is already configured to run on it
+2. Make sure you do not run it in a browser that has MetaMask installed as it will no work as intended!
+
 #### Stage 2 - Single player - MetaMask Ropsten test net - not started
 Connect to the game using MetaMask on the Ropsten test net and play against the computer
 
