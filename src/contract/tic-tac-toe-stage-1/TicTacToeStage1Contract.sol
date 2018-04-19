@@ -1,4 +1,4 @@
-pragma solidity ^ 0.4.16;
+pragma solidity ^0.4.16;
 
 contract TicTacToeStage1Contract {
 
@@ -47,9 +47,12 @@ contract TicTacToeStage1Contract {
         address adversary = player_vs_player[player];
 
         Board storage board = gameStates[player];
-        string storage player_value = board.player_value[player];
+        string memory player_value = board.player_value[player];
 
         Board3x3State storage state = board.state;
+
+        if(board.win != address(0))
+            revert();
 
         if (boxIndex == 0) {
             state.box11 = player_value;
@@ -70,7 +73,20 @@ contract TicTacToeStage1Contract {
         } else if (boxIndex == 8) {
             state.box33 = player_value;
         }
+
+        if ((keccak256(state.box11) == keccak256(player_value) && keccak256(state.box12) == keccak256(player_value) && keccak256(state.box13) == keccak256(player_value)) // line 1
+        || (keccak256(state.box21) == keccak256(player_value) && keccak256(state.box22) == keccak256(player_value) && keccak256(state.box23) == keccak256(player_value)) // line 2
+        || (keccak256(state.box31) == keccak256(player_value) && keccak256(state.box32) == keccak256(player_value) && keccak256(state.box33) == keccak256(player_value)) // line 3
         
+        || (keccak256(state.box11) == keccak256(player_value) && keccak256(state.box21) == keccak256(player_value) && keccak256(state.box31) == keccak256(player_value)) // column 1
+        || (keccak256(state.box12) == keccak256(player_value) && keccak256(state.box22) == keccak256(player_value) && keccak256(state.box32) == keccak256(player_value)) // column 2
+        || (keccak256(state.box13) == keccak256(player_value) && keccak256(state.box23) == keccak256(player_value) && keccak256(state.box33) == keccak256(player_value)) // column 3
+        
+        || (keccak256(state.box11) == keccak256(player_value) && keccak256(state.box22) == keccak256(player_value) && keccak256(state.box33) == keccak256(player_value)) // diagonal 1
+        || (keccak256(state.box13) == keccak256(player_value) && keccak256(state.box22) == keccak256(player_value) && keccak256(state.box31) == keccak256(player_value))) { // diagonal 2
+            board.win = player;
+        }
+
         gameStates[player] = board;
         gameStates[adversary] = board;
     }
@@ -97,5 +113,11 @@ contract TicTacToeStage1Contract {
         Board storage board = gameStates[player];
         
         return board.player_value[player];
+    }
+    
+    function getWinner() constant public returns(address) {
+        Board storage board = gameStates[msg.sender];
+        
+        return board.win;
     }
 }
