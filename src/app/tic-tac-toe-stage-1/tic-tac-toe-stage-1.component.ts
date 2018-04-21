@@ -28,9 +28,9 @@ export class TicTacToeStage1Component implements OnInit {
     public showLine2: boolean = false;
     public showLine3: boolean = false;
 
-    public showColum1: boolean = false;
-    public showColum2: boolean = false;
-    public showColum3: boolean = false;
+    public showColumn1: boolean = false;
+    public showColumn2: boolean = false;
+    public showColumn3: boolean = false;
 
     public showDiagonal1: boolean = false;
     public showDiagonal2: boolean = false;
@@ -129,13 +129,13 @@ export class TicTacToeStage1Component implements OnInit {
             this.showLine3 = true;
             this.isPlaying = false;
         } else if (this.boxValues[0] == playerState && this.boxValues[3] == playerState && this.boxValues[6] == playerState) {
-            this.showColum1 = true;
+            this.showColumn1 = true;
             this.isPlaying = false;
         } else if (this.boxValues[1] == playerState && this.boxValues[4] == playerState && this.boxValues[7] == playerState) {
-            this.showColum2 = true;
+            this.showColumn2 = true;
             this.isPlaying = false;
         } else if (this.boxValues[2] == playerState && this.boxValues[5] == playerState && this.boxValues[8] == playerState) {
-            this.showColum3 = true;
+            this.showColumn3 = true;
             this.isPlaying = false;
         } else if (this.boxValues[0] == playerState && this.boxValues[4] == playerState && this.boxValues[8] == playerState) {
             this.showDiagonal1 = true;

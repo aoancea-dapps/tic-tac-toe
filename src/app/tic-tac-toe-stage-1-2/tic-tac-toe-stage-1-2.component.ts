@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-tic-tac-toe-stage-1-2',
-  templateUrl: './tic-tac-toe-stage-1-2.component.html',
-  styleUrls: ['./tic-tac-toe-stage-1-2.component.less']
+    selector: 'app-tic-tac-toe-stage-1-2',
+    templateUrl: './tic-tac-toe-stage-1-2.component.html',
+    styleUrls: ['./tic-tac-toe-stage-1-2.component.less']
 })
 export class TicTacToeStage12Component implements OnInit {
 
@@ -25,9 +25,9 @@ export class TicTacToeStage12Component implements OnInit {
     public showLine2: boolean = false;
     public showLine3: boolean = false;
 
-    public showColum1: boolean = false;
-    public showColum2: boolean = false;
-    public showColum3: boolean = false;
+    public showColumn1: boolean = false;
+    public showColumn2: boolean = false;
+    public showColumn3: boolean = false;
 
     public showDiagonal1: boolean = false;
     public showDiagonal2: boolean = false;
@@ -36,9 +36,12 @@ export class TicTacToeStage12Component implements OnInit {
     public player2Won: boolean = false;
 
 
-  constructor() { }
+    constructor() { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
+    clickBox(index): void {
+
+    }
 }
