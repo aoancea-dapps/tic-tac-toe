@@ -1,0 +1,80 @@
+<span>
+        Welcome to decentralized Tic Tac Toe! You are playing with '1' always!
+    </span>
+    
+    
+    <div class="game-table">
+        <div class='line'>
+            <div class="box" (click)="clickBox(0)">
+                <span>{{boxValues[0]}}</span>
+                <div class="horizontal-line" *ngIf="showLine1"></div>
+                <div class="vertical-line" *ngIf="showColumn1"></div>
+    
+                <div class="first-diagonal-line" *ngIf="showDiagonal1"></div>
+            </div>
+            <div class="box" (click)="clickBox(1)">
+                <span>{{boxValues[1]}}</span>
+                <div class="horizontal-line" *ngIf="showLine1"></div>
+                <div class="vertical-line" *ngIf="showColumn2"></div>
+            </div>
+            <div class="box" (click)="clickBox(2)">
+                <span>{{boxValues[2]}}</span>
+                <div class="horizontal-line" *ngIf="showLine1"></div>
+                <div class="vertical-line" *ngIf="showColumn3"></div>
+    
+                <div class="second-diagonal-line" *ngIf="showDiagonal2"></div>
+            </div>
+        </div>
+    
+        <div class='line'>
+            <div class="box" (click)="clickBox(3)">
+                <span>{{boxValues[3]}}</span>
+                <div class="horizontal-line" *ngIf="showLine2"></div>
+                <div class="vertical-line" *ngIf="showColumn1"></div>
+            </div>
+            <div class="box" (click)="clickBox(4)">
+                <span>{{boxValues[4]}}</span>
+                <div class="horizontal-line" *ngIf="showLine2"></div>
+                <div class="vertical-line" *ngIf="showColumn2"></div>
+    
+                <div class="first-diagonal-line" *ngIf="showDiagonal1"></div>
+                <div class="second-diagonal-line" *ngIf="showDiagonal2"></div>
+            </div>
+            <div class="box" (click)="clickBox(5)">
+                <span>{{boxValues[5]}}</span>
+                <div class="horizontal-line" *ngIf="showLine2"></div>
+                <div class="vertical-line" *ngIf="showColumn3"></div>
+            </div>
+        </div>
+    
+        <div class='line'>
+            <div class="box" (click)="clickBox(6)">
+                <span>{{boxValues[6]}}</span>
+                <div class="horizontal-line" *ngIf="showLine3"></div>
+                <div class="vertical-line" *ngIf="showColumn1"></div>
+    
+                <div class="second-diagonal-line" *ngIf="showDiagonal2"></div>
+            </div>
+            <div class="box" (click)="clickBox(7)">
+                <span>{{boxValues[7]}}</span>
+                <div class="horizontal-line" *ngIf="showLine3"></div>
+                <div class="vertical-line" *ngIf="showColumn2"></div>
+            </div>
+            <div class="box" (click)="clickBox(8)">
+                <span>{{boxValues[8]}}</span>
+                <div class="horizontal-line" *ngIf="showLine3"></div>
+                <div class="vertical-line" *ngIf="showColumn3"></div>
+    
+                <div class="first-diagonal-line" *ngIf="showDiagonal1"></div>
+            </div>
+        </div>
+    </div>
+    
+    <br />
+    
+    <p *ngIf="player1Won">Congrats! You have won the game! For playing again, please refresh the page!</p>
+    <p *ngIf="player2Won">You have lost! Better luck next time! For playing again, please refresh the page!</p>
+    <p *ngIf="draw">Somebody cheated! It's a draw! Points are going to be deducted from each player for this! Please report the other player if he cheated!</p>
+    
+    <p>Note: Validations will be added later on</p>
+    

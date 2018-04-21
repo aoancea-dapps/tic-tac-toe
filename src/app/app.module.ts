@@ -13,6 +13,7 @@ import { AuctionComponent } from './auction/auction.component';
 import { AuctionMetamaskComponent } from './auction-metamask/auction-metamask.component';
 import { RaiseFundsComponent } from './raise-funds/raise-funds.component';
 import { TicTacToeStage1Component } from './tic-tac-toe-stage-1/tic-tac-toe-stage-1.component';
+import { TicTacToeStage12Component } from './tic-tac-toe-stage-1-2/tic-tac-toe-stage-1-2.component';
 
 const routes = [
     { path: 'navigation-page', component: NavigationPageComponent },
@@ -20,6 +21,7 @@ const routes = [
     { path: 'auction-metamask', component: AuctionMetamaskComponent },
     { path: 'raise-funds', component: RaiseFundsComponent },
     { path: 'tic-tac-toe-stage-1', component: TicTacToeStage1Component },
+    { path: 'tic-tac-toe-stage-1-2', component: TicTacToeStage12Component },
 
     { path: '', redirectTo: '/navigation-page', pathMatch: "full" }
 ]
@@ -32,6 +34,7 @@ const routes = [
         AuctionMetamaskComponent,
         RaiseFundsComponent,
         TicTacToeStage1Component,
+        TicTacToeStage12Component,
     ],
     imports: [
         BrowserModule,
