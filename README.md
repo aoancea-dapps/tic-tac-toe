@@ -55,7 +55,9 @@ Run a test net locally and play against the computer
 1.1. This will start on port http://127.0.0.1:7545, application is already configured to run on it
 1.2. Go to `Settings -> Chain` and set `GAS LIMIT` to `30000000000000` and `GAS PRICE` to `1`
 1.3. Now you're good to go
-2. Make sure you do not run it in a browser that has MetaMask installed as it will no work as intended!
+2. Navigate to https://gateway.ipfs.io/ipfs/QmSG1xr3vSMtdNGeg3Kcf5jMfwaWq16JCAcpUaQbgPsq4q/#/tic-tac-toe-stage-1 . Make sure you do not run it in a browser that has MetaMask installed as it will no work as intended!
+
+_Note: It's still early stages of development, so few validation might not be in there_
 
 #### Stage 2 - Single player - MetaMask Ropsten test net - not started
 Connect to the game using MetaMask on the Ropsten test net and play against the computer
