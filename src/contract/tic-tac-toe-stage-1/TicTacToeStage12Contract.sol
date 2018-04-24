@@ -18,25 +18,29 @@ contract TicTacToeStage12Contract {
 
     mapping (address => Board) gameStates;
 
+    event GameCompleteEvent(address winner);
+
     function startGame(address player1, address player2) public {
         player_vs_player[player1] = player2;
         player_vs_player[player2] = player1;
     }
 
-    function endGame(address winner) public {
-        Board storage player_board = gameStates[msg.sender];
+    function endGame(address player, address winner) public {
+        Board storage player_board = gameStates[player];
         if (!player_board.is_initiliazed) {
             player_board.is_initiliazed = true;
             player_board.potential_winner = winner;
         }
 
-        address adversary = player_vs_player[msg.sender];
+        address adversary = player_vs_player[player];
         Board storage adversary_board = gameStates[adversary];
         if (adversary_board.is_initiliazed) {
             
             if (player_board.potential_winner == adversary_board.potential_winner) {
                 player_board.winner = player_board.potential_winner;
                 adversary_board.winner = adversary_board.potential_winner;
+
+                emit GameCompleteEvent(adversary_board.winner);
             } else {
                 revert();
             }
