@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { Web3ProviderService } from './services/web3-provider.service';
 import { TicTacToeStage1ProviderService } from './tic-tac-toe-stage-1/tic-tac-toe-stage-1-provider.service';
 import { TicTacToeStage12ProviderService } from './tic-tac-toe-stage-1-2/tic-tac-toe-stage-1-2-provider.service';
+import { TicTacToeStage3ProviderService } from './tic-tac-toe-stage-3/tic-tac-toe-stage-3-provider.service';
 
 import { AppComponent } from './app.component';
 
@@ -15,6 +16,7 @@ import { AuctionMetamaskComponent } from './auction-metamask/auction-metamask.co
 import { RaiseFundsComponent } from './raise-funds/raise-funds.component';
 import { TicTacToeStage1Component } from './tic-tac-toe-stage-1/tic-tac-toe-stage-1.component';
 import { TicTacToeStage12Component } from './tic-tac-toe-stage-1-2/tic-tac-toe-stage-1-2.component';
+import { TicTacToeStage3Component } from './tic-tac-toe-stage-3/tic-tac-toe-stage-3.component';
 
 const routes = [
     { path: 'navigation-page', component: NavigationPageComponent },
@@ -23,6 +25,7 @@ const routes = [
     { path: 'raise-funds', component: RaiseFundsComponent },
     { path: 'tic-tac-toe-stage-1', component: TicTacToeStage1Component },
     { path: 'tic-tac-toe-stage-1-2', component: TicTacToeStage12Component },
+    { path: 'tic-tac-toe-stage-3', component: TicTacToeStage3Component },
 
     { path: '', redirectTo: '/navigation-page', pathMatch: "full" }
 ]
@@ -36,13 +39,14 @@ const routes = [
         RaiseFundsComponent,
         TicTacToeStage1Component,
         TicTacToeStage12Component,
+        TicTacToeStage3Component,
     ],
     imports: [
         BrowserModule,
         RouterModule.forRoot(routes, { useHash: true }),
         FormsModule
     ],
-    providers: [Web3ProviderService, TicTacToeStage1ProviderService, TicTacToeStage12ProviderService],
+    providers: [Web3ProviderService, TicTacToeStage1ProviderService, TicTacToeStage12ProviderService, TicTacToeStage3ProviderService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
