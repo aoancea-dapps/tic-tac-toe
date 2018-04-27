@@ -41,6 +41,7 @@ export class TicTacToeStage3Component implements OnInit {
     public player2Won: boolean = false;
 
     public winnerConfirmed: boolean = false;
+    public is_draw: boolean = false;
 
     public contract_address: string;
 
@@ -48,6 +49,8 @@ export class TicTacToeStage3Component implements OnInit {
     private player2_state: string;
 
     private player_states: Map<string, string>;
+
+    public game_status: string;
 
     constructor(private web3Provider: Web3ProviderService, private ticTacToeStage3Provider: TicTacToeStage3ProviderService) {
         this.web3 = this.web3Provider.web3;
@@ -66,6 +69,8 @@ export class TicTacToeStage3Component implements OnInit {
 
     startGame(): void {
         var self = this;
+
+        self.game_status = 'Connecting';
 
         self.web3.eth.defaultAccount = self.player1;
 
@@ -95,6 +100,8 @@ export class TicTacToeStage3Component implements OnInit {
             }
 
             self.isPlaying = true;
+
+            self.game_status = "You are now connected with " + self.player2;
         });
 
         gameCompleteEvent.watch(function (err, result) {
@@ -112,7 +119,12 @@ export class TicTacToeStage3Component implements OnInit {
                 self.checkIfWin(self.player2);
 
                 if (!self.isPlaying) {
-                    self.ticTacToeStage3Instance.endGame(self.player1, self.player2, { gas: 300000 });
+
+                    if (self.is_draw) {
+                        self.ticTacToeStage3Instance.endGame(self.player1, '0x0000000000000000000000000000000000000000', { gas: 300000 });
+                    } else {
+                        self.ticTacToeStage3Instance.endGame(self.player1, self.player2, { gas: 300000 });
+                    }
                 }
             }
         });
@@ -137,7 +149,12 @@ export class TicTacToeStage3Component implements OnInit {
         self.checkIfWin(self.player1);
 
         if (!self.isPlaying) {
-            self.ticTacToeStage3Instance.endGame(self.player1, self.player1, { gas: 300000 });
+
+            if (self.is_draw) {
+                self.ticTacToeStage3Instance.endGame(self.player1, '0x0000000000000000000000000000000000000000', { gas: 300000 });
+            } else {
+                self.ticTacToeStage3Instance.endGame(self.player1, self.player1, { gas: 300000 });
+            }
         }
     }
 
@@ -167,6 +184,12 @@ export class TicTacToeStage3Component implements OnInit {
             this.isPlaying = false;
         } else if (this.boxValues[2] == playerState && this.boxValues[4] == playerState && this.boxValues[6] == playerState) {
             this.showDiagonal2 = true;
+            this.isPlaying = false;
+        } else if (this.boxValues[0] && this.boxValues[1] && this.boxValues[2]
+            && this.boxValues[3] && this.boxValues[4] && this.boxValues[5]
+            && this.boxValues[6] && this.boxValues[7] && this.boxValues[8]
+        ) {
+            this.is_draw = true;
             this.isPlaying = false;
         }
     }

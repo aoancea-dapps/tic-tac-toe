@@ -1,7 +1,8 @@
 <span>
-    Welcome to decentralized Tic Tac Toe! You are playing with '1' always!
+    Welcome to decentralized Tic Tac Toe!
 </span>
-
+<span *ngIf="!isPlaying">Please choose an account and start the game</span>
+<span *ngIf="isPlaying"> You are playing with {{player_states[player1]}}</span>
 
 <div class="row">
     <div class="column column-33">
@@ -19,6 +20,12 @@
             <br />
         </label>
         <button (click)="startGame()">Start game</button>
+    </div>
+    <div class="column column-33">
+        <label>Game Status</label>
+        <blockquote>
+            <p>{{game_status}}</p>
+        </blockquote>
     </div>
 </div>
 
@@ -94,6 +101,7 @@
 
 <p *ngIf="player1Won">Congrats! You have won the game! For playing again, please refresh the page!</p>
 <p *ngIf="player2Won">You have lost! Better luck next time! For playing again, please refresh the page!</p>
+<p *ngIf="winnerConfirmed && !player1Won && !player2Won">This is a draw! You are equal! For playing again, please refresh the page!</p>
 <!-- <p *ngIf="draw">Somebody cheated! It's a draw! Points are going to be deducted from each player for this! Please report the other player if he cheated!</p> -->
 
 <p>Note: Validations will be added later on</p>
