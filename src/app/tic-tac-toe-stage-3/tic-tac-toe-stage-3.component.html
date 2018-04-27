@@ -3,6 +3,26 @@
 </span>
 
 
+<div class="row">
+    <div class="column column-33">
+        <label>Contract address</label>
+        <input type="text" [(ngModel)]="contract_address" />
+    </div>
+    <div class="column column-33">
+        <label>Select account Account</label>
+        <select [(ngModel)]="player1">
+            <option *ngFor="let account of accounts" [value]="account">{{account}}</option>
+        </select>
+    </div>
+    <div class="column column-25">
+        <label>
+            <br />
+        </label>
+        <button (click)="startGame()">Start game</button>
+    </div>
+</div>
+
+
 <div class="game-table">
     <div class='line'>
         <div class="box" (click)="clickBox(0)">

@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Web3ProviderService } from '../services/web3-provider.service';
 import { TicTacToeStage3ProviderService } from './tic-tac-toe-stage-3-provider.service';
 
+declare var Web3: any;
+declare var web3: any;
+
 @Component({
     selector: 'app-tic-tac-toe-stage-3',
     templateUrl: './tic-tac-toe-stage-3.component.html',
@@ -12,7 +15,6 @@ export class TicTacToeStage3Component implements OnInit {
 
     private web3: any;
 
-    private deployedContract: any;
     private ticTacToeStage3Instance: any;
 
     public boxValues: string[] = ['', '', '', '', '', '', '', '', ''];
@@ -40,47 +42,83 @@ export class TicTacToeStage3Component implements OnInit {
 
     public winnerConfirmed: boolean = false;
 
+    public contract_address: string;
+
     constructor(private web3Provider: Web3ProviderService, private ticTacToeStage3Provider: TicTacToeStage3ProviderService) {
-        this.web3 = this.web3Provider.web3;
+        //this.web3 = this.web3Provider.web3;
+
+        //this.web3 = new Web3(web3.currentProvider);
+
+        //this.web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
+
+        this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
     }
 
     ngOnInit() {
         var self = this;
 
-        this.player1 = this.web3.eth.accounts[0];
-        this.player2 = this.web3.eth.accounts[1];
+        self.contract_address = '0xcf23faab8cb75ebfb5472b4a3bcdfae65c68fd5e';
+        self.accounts = this.web3.eth.accounts;
+
+        self.web3.eth.defaultAccount = self.accounts[0];
+    }
+
+    startGame(): void {
+        var self = this;
 
         self.web3.eth.defaultAccount = self.player1;
 
-        var TicTacToeStage3Contract = this.web3.eth.contract(self.ticTacToeStage3Provider.abi);
+        var private_key0 = self.web3.shh.newKeyPair();
 
-        self.deployedContract = TicTacToeStage3Contract.new({ data: self.ticTacToeStage3Provider.byte_code, from: self.player1, gas: 30000000000 });
+        //var PublicKey = self.web3.shh.getPublicKey();
 
-        var addressPromiseHandle = setInterval(() => {
-            if (!self.deployedContract.address) return;
+        var private_key = self.web3.shh.newKeyPair(function (err, result) {
+            console.log(result);
+        });
+        var version = self.web3.shh.version(function (err, result) {
+            console.log(result);
+        });
 
-            clearInterval(addressPromiseHandle);
+        var version = self.web3.shh.generateSymKeyFromPassword('test', function (err, result) {
+            console.log(result);
+        });
 
-            self.ticTacToeStage3Instance = TicTacToeStage3Contract.at(self.deployedContract.address);
+        // var version = self.web3.shh.getSymKey(function (err, result) {
+        //     console.log(result);
+        // });
 
-            var gameCompleteEvent = self.ticTacToeStage3Instance.GameCompleteEvent();
 
-            gameCompleteEvent.watch(function (err, result) {
-                self.player1Won = self.player1 == result.args.winner;
-                self.player2Won = self.player2 == result.args.winner;
 
-                self.winnerConfirmed = true;
-            });
+        // var TicTacToeStage3Contract = self.web3.eth.contract(self.ticTacToeStage3Provider.abi);
 
-            self.ticTacToeStage3Instance.startGame(self.player1, self.player2, { gas: 300000 });
+        // self.ticTacToeStage3Instance = TicTacToeStage3Contract.at(self.contract_address);
 
-            this.isPlaying = true;
+        // var gameStartEvent = self.ticTacToeStage3Instance.GameStartEvent();
+        // var gameCompleteEvent = self.ticTacToeStage3Instance.GameCompleteEvent();
 
-        }, 1000);
+        // gameStartEvent.watch(function (err, result) {
+
+        //     if (result.args.player1 != self.player1) {
+        //         self.player2 = result.args.player1;
+        //     } else {
+        //         self.player2 = result.args.player2;
+        //     }
+
+        //     self.isPlaying = true;
+        // });
+
+        // gameCompleteEvent.watch(function (err, result) {
+        //     self.player1Won = self.player1 == result.args.winner;
+        //     self.player2Won = self.player2 == result.args.winner;
+
+        //     self.winnerConfirmed = true;
+        // });
+
+        // self.ticTacToeStage3Instance.startGame(self.player1, { gas: 300000 });
     }
 
     clickBox(index): void {
-        if (!this.isPlaying)
+        if (!self.isPlaying)
             return;
 
         console.log('box ' + (parseInt(index) + 1) + ' clicked!');

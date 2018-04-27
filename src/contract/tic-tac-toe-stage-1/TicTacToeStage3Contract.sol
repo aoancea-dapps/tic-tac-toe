@@ -18,11 +18,29 @@ contract TicTacToeStage12Contract {
 
     mapping (address => Board) gameStates;
 
-    event GameCompleteEvent(address winner);
+    address[] pending_addreses;
 
-    function startGame(address player1, address player2) public {
-        player_vs_player[player1] = player2;
-        player_vs_player[player2] = player1;
+    event GameCompleteEvent(address winner);
+    event GameStartEvent(address player1, address player2);
+
+    function startGame(address player) public {
+        address potential_player = address(0);
+        for (uint i = 0; i < pending_addreses.length; i++) {
+            if (pending_addreses[i] != address(0)) {
+                potential_player = pending_addreses[i];
+                pending_addreses[i] = address(0);
+                break;
+            }
+        }
+
+        if (potential_player == address(0)) {
+            pending_addreses.push(player);
+        } else {
+            player_vs_player[player] = potential_player;
+            player_vs_player[potential_player] = player;
+
+            emit GameStartEvent(potential_player, player);
+        }
     }
 
     function endGame(address player, address winner) public {
