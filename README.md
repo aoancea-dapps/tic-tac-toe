@@ -47,7 +47,7 @@ Below are two approaches for implementation and we'll try each one to see how th
 ### Stages of implementation
 Implementation is done in several stages to achive faster feedback from an almost complete game. Each stage should be playable while the next stage adds new features
 
-#### Stage 1 - Single player - Ganache desktop test net - in progress
+#### Stage 1 - Single player - Ganache desktop test net - operational
 Run a test net locally and play against the computer
 
 ##### Installation steps
@@ -62,13 +62,25 @@ _Note: It's still early stages of development, so few validation might not be in
 #### Stage 2 - Single player - MetaMask Ropsten test net - not started
 Connect to the game using MetaMask on the Ropsten test net and play against the computer
 
-#### Stage 3 - Multi player - Ganache desktop test net - not started
+#### Stage 3 - Multi player - Ganache desktop test net - operational
 Run a test net locally and two game instances. In each instance pick an account from the list and start playing between the two
 
 ##### Installation steps
-1. run `geth --shh --datadir=.\chaindata --rpc --rpccorsdomain="*" --rpcport="8545" --minerthreads="1" --nodi
+1.1. run `geth --shh --datadir=.\chaindata --rpc --rpccorsdomain="*" --rpcport="8545" --minerthreads="1" --nodi
 scover --maxpeers=0 --unlock 0 --rpcapi="eth,net,web3,personal,miner,shh"`
-2. you can attach to that node `geth attach http://127.0.0.1:8545` and issue commands like `miner.start()` or `miner.stop()` such that when you have pending transactions they get completed(if the miner is running)
+1.2. you can attach to that node `geth attach http://127.0.0.1:8545` and issue commands like `miner.start()` or `miner.stop()` such that when you have pending transactions they get completed(if the miner is running)
+1.3 or you can simply install ganache for desktop from https://github.com/trufflesuite/ganache/releases (recommended)
+1.4. This will start on port http://127.0.0.1:7545, application is already configured to run on it
+1.5. Go to `Settings -> Chain` and set `GAS LIMIT` to `30000000000000` and `GAS PRICE` to `1`
+2.1. Navigate to https://gateway.ipfs.io/ipfs/QmWeKXP5yRBeeogmr7uSaKLVwmnjoZtwycbdenwVqQt9hA/#/tic-tac-toe-stage-3 . Make sure you do not run it in a browser that has MetaMask installed as it will no work as intended!
+2.2. If IPFS does not pull it, it means that the cache on some nodes is gone and my PC is offline(which it shouldn't be). You can ping me on slack or run `ng serve` in the root folder. Then open up `http://localhost:4200/#/tic-tac-toe-stage-3`
+2.3. You should have two browsers open! This is a multiplayer game!
+3. Go to `https://remix.ethereum.org` and copy over the smart contract found in `src/contract/tic-tac-toe-stage-1/TicTacToeStage3Contract.sol`
+4. Deploy the contract
+5. Copy and paste the contract address in the `Contract address` field of the game.(in both browsers)
+6. Select your player(in each browser) and hit `Start game`. The game will match you with other players signed for a game(in this case the two players you signed)
+7. Play the game until somebody wins or looses(validations are not in place, so don't double click and any of that stuff)
+8. Thanks!
 
 #### Stage 4 - Multi player - MetaMask Ropsten test net - not started
 Connect to the game using MetaMask on the Ropsten test net and wait for an opponent to come online. Play it as a 1v1 accross the globe.
