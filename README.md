@@ -55,7 +55,8 @@ Run a test net locally and play against the computer
     - This will start on port http://127.0.0.1:7545, application is already configured to run on it 
     - Go to `Settings -> Chain` and set `GAS LIMIT` to `30000000000000` and `GAS PRICE` to `1` 
     - Now you're good to go 
-2. Navigate to https://gateway.ipfs.io/ipfs/QmSG1xr3vSMtdNGeg3Kcf5jMfwaWq16JCAcpUaQbgPsq4q/#/tic-tac-toe-stage-1 . Make sure you do not run it in a browser that has MetaMask installed as it will no work as intended!
+2. Navigate to https://gateway.ipfs.io/ipfs/QmSG1xr3vSMtdNGeg3Kcf5jMfwaWq16JCAcpUaQbgPsq4q/#/tic-tac-toe-stage-1
+    - Make sure you do not run it in a browser that has MetaMask installed as it will no work as intended!
 
 _Note: It's still early stages of development, so few validation might not be in there_
 
@@ -72,7 +73,8 @@ scover --maxpeers=0 --unlock 0 --rpcapi="eth,net,web3,personal,miner,shh"`
     - or you can simply install ganache for desktop from https://github.com/trufflesuite/ganache/releases (recommended) 
     - This will start on port http://127.0.0.1:7545, application is already configured to run on it 
     - Go to `Settings -> Chain` and set `GAS LIMIT` to `30000000000000` and `GAS PRICE` to `1` 
-2. Navigate to https://gateway.ipfs.io/ipfs/QmWeKXP5yRBeeogmr7uSaKLVwmnjoZtwycbdenwVqQt9hA/#/tic-tac-toe-stage-3 . Make sure you do not run it in a browser that has MetaMask installed as it will no work as intended! 
+2. Navigate to https://gateway.ipfs.io/ipfs/QmWeKXP5yRBeeogmr7uSaKLVwmnjoZtwycbdenwVqQt9hA/#/tic-tac-toe-stage-3
+    - Make sure you do not run it in a browser that has MetaMask installed as it will no work as intended! 
     - If IPFS does not pull it, it means that the cache on some nodes is gone and my PC is offline(which it shouldn't be). You can ping me on slack or run `ng serve` in the root folder. Then open up `http://localhost:4200/#/tic-tac-toe-stage-3` 
     - You should have two browsers open! This is a multiplayer game! 
 3. Go to `https://remix.ethereum.org` and copy over the smart contract found in `src/contract/tic-tac-toe-stage-1/TicTacToeStage3Contract.sol`
