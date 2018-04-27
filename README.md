@@ -65,6 +65,11 @@ Connect to the game using MetaMask on the Ropsten test net and play against the 
 #### Stage 3 - Multi player - Ganache desktop test net - not started
 Run a test net locally and two game instances. In each instance pick an account from the list and start playing between the two
 
+##### Installation steps
+1. run `geth --shh --datadir=.\chaindata --rpc --rpccorsdomain="*" --rpcport="8545" --minerthreads="1" --nodi
+scover --maxpeers=0 --unlock 0 --rpcapi="eth,net,web3,personal,miner,shh"`
+2. you can attach to that node `geth attach http://127.0.0.1:8545` and issue commands like `miner.start()` or `miner.stop()` such that when you have pending transactions they get completed(if the miner is running)
+
 #### Stage 4 - Multi player - MetaMask Ropsten test net - not started
 Connect to the game using MetaMask on the Ropsten test net and wait for an opponent to come online. Play it as a 1v1 accross the globe.
 
