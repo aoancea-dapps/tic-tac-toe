@@ -44,23 +44,24 @@ export class TicTacToeStage3Component implements OnInit {
 
     public contract_address: string;
 
+    private player1_state: string;
+    private player2_state: string;
+
+    private player_states: Map<string, string>;
+
     constructor(private web3Provider: Web3ProviderService, private ticTacToeStage3Provider: TicTacToeStage3ProviderService) {
-        //this.web3 = this.web3Provider.web3;
-
-        //this.web3 = new Web3(web3.currentProvider);
-
-        //this.web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/'));
-
-        this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
+        this.web3 = this.web3Provider.web3;
     }
 
     ngOnInit() {
         var self = this;
 
-        self.contract_address = '0xcf23faab8cb75ebfb5472b4a3bcdfae65c68fd5e';
+        self.contract_address = '0x040e5d71ad98e8a1de786d4bccefee4767884bd4';
         self.accounts = this.web3.eth.accounts;
 
         self.web3.eth.defaultAccount = self.accounts[0];
+
+        self.player_states = new Map<string, string>();
     }
 
     startGame(): void {
@@ -68,56 +69,60 @@ export class TicTacToeStage3Component implements OnInit {
 
         self.web3.eth.defaultAccount = self.player1;
 
-        var private_key0 = self.web3.shh.newKeyPair();
+        var TicTacToeStage3Contract = self.web3.eth.contract(self.ticTacToeStage3Provider.abi);
 
-        //var PublicKey = self.web3.shh.getPublicKey();
+        self.ticTacToeStage3Instance = TicTacToeStage3Contract.at(self.contract_address);
 
-        var private_key = self.web3.shh.newKeyPair(function (err, result) {
-            console.log(result);
+        var gameStartEvent = self.ticTacToeStage3Instance.GameStartEvent();
+        var gameCompleteEvent = self.ticTacToeStage3Instance.GameCompleteEvent();
+        var markBoxEvent = self.ticTacToeStage3Instance.MarkBoxEvent();
+
+        gameStartEvent.watch(function (err, result) {
+
+            if (result.args.player1 != self.player1) {
+                self.player2 = result.args.player1;
+            } else {
+                self.player2 = result.args.player2;
+            }
+
+            if (result.args.player1 == self.player1) {
+
+                self.player_states[self.player1] = 'X';
+                self.player_states[self.player2] = 'O';
+            } else {
+                self.player_states[self.player1] = 'O';
+                self.player_states[self.player2] = 'X';
+            }
+
+            self.isPlaying = true;
         });
-        var version = self.web3.shh.version(function (err, result) {
-            console.log(result);
+
+        gameCompleteEvent.watch(function (err, result) {
+            self.player1Won = self.player1 == result.args.winner;
+            self.player2Won = self.player2 == result.args.winner;
+
+            self.winnerConfirmed = true;
         });
 
-        var version = self.web3.shh.generateSymKeyFromPassword('test', function (err, result) {
-            console.log(result);
+        markBoxEvent.watch(function (err, result) {
+            if (result.args.player == self.player2) {
+
+                self.markBox(self.player2, result.args.index);
+
+                self.checkIfWin(self.player2);
+
+                if (!self.isPlaying) {
+                    self.ticTacToeStage3Instance.endGame(self.player1, self.player2, { gas: 300000 });
+                }
+            }
         });
 
-        // var version = self.web3.shh.getSymKey(function (err, result) {
-        //     console.log(result);
-        // });
-
-
-
-        // var TicTacToeStage3Contract = self.web3.eth.contract(self.ticTacToeStage3Provider.abi);
-
-        // self.ticTacToeStage3Instance = TicTacToeStage3Contract.at(self.contract_address);
-
-        // var gameStartEvent = self.ticTacToeStage3Instance.GameStartEvent();
-        // var gameCompleteEvent = self.ticTacToeStage3Instance.GameCompleteEvent();
-
-        // gameStartEvent.watch(function (err, result) {
-
-        //     if (result.args.player1 != self.player1) {
-        //         self.player2 = result.args.player1;
-        //     } else {
-        //         self.player2 = result.args.player2;
-        //     }
-
-        //     self.isPlaying = true;
-        // });
-
-        // gameCompleteEvent.watch(function (err, result) {
-        //     self.player1Won = self.player1 == result.args.winner;
-        //     self.player2Won = self.player2 == result.args.winner;
-
-        //     self.winnerConfirmed = true;
-        // });
-
-        // self.ticTacToeStage3Instance.startGame(self.player1, { gas: 300000 });
+        self.ticTacToeStage3Instance.startGame(self.player1, { gas: 300000 });
     }
 
     clickBox(index): void {
+        var self = this;
+
         if (!self.isPlaying)
             return;
 
@@ -125,35 +130,19 @@ export class TicTacToeStage3Component implements OnInit {
 
         var self = this;
 
+        self.ticTacToeStage3Instance.markBox(index, { gas: 300000 });
+
         self.markBox(self.player1, index);
 
         self.checkIfWin(self.player1);
 
         if (!self.isPlaying) {
             self.ticTacToeStage3Instance.endGame(self.player1, self.player1, { gas: 300000 });
-            self.ticTacToeStage3Instance.endGame(self.player2, self.player1, { gas: 300000 });
-        } else {
-            for (var i = 0; i < 8; ++i) {
-                if (!self.boxValues[i]) {
-
-                    self.markBox(self.player2, i);
-
-                    self.checkIfWin(self.player2);
-
-                    // check if win?
-                    if (!self.isPlaying) {
-                        self.ticTacToeStage3Instance.endGame(self.player2, self.player2, { gas: 300000 });
-                        self.ticTacToeStage3Instance.endGame(self.player1, self.player2, { gas: 300000 });
-                    }
-
-                    break;
-                }
-            }
         }
     }
 
     private checkIfWin(player: string): void {
-        var playerState = player == this.player1 ? 'X' : 'O';
+        var playerState = this.player_states[player];
 
         if (this.boxValues[0] == playerState && this.boxValues[1] == playerState && this.boxValues[2] == playerState) {
             this.showLine1 = true;
@@ -183,7 +172,7 @@ export class TicTacToeStage3Component implements OnInit {
     }
 
     private markBox(player: string, index: number): void {
-        var playerState = player == this.player1 ? 'X' : 'O';
+        var playerState = this.player_states[player];
 
         this.boxValues[index] = playerState;
     }

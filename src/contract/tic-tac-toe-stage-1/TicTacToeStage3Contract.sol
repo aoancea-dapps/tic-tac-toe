@@ -7,8 +7,6 @@ contract TicTacToeStage12Contract {
 
         address potential_winner; // who won from player1's perspective
 
-        address winner;
-
         bool isDraw;
 
         string game_key; // will be used in a future implementation to target a specific game between two players
@@ -18,29 +16,25 @@ contract TicTacToeStage12Contract {
 
     mapping (address => Board) gameStates;
 
-    address[] pending_addreses;
-
     event GameCompleteEvent(address winner);
     event GameStartEvent(address player1, address player2);
+    event MarkBoxEvent(address player, uint index);
+
+    address match_making_initial_player;
 
     function startGame(address player) public {
-        address potential_player = address(0);
-        for (uint i = 0; i < pending_addreses.length; i++) {
-            if (pending_addreses[i] != address(0)) {
-                potential_player = pending_addreses[i];
-                pending_addreses[i] = address(0);
-                break;
-            }
-        }
+        if (match_making_initial_player == address(0))
+            match_making_initial_player = player;
 
-        if (potential_player == address(0)) {
-            pending_addreses.push(player);
-        } else {
-            player_vs_player[player] = potential_player;
-            player_vs_player[potential_player] = player;
+        if (match_making_initial_player == player)
+            return;
 
-            emit GameStartEvent(potential_player, player);
-        }
+        player_vs_player[player] = match_making_initial_player;
+        player_vs_player[match_making_initial_player] = player;
+
+        emit GameStartEvent(match_making_initial_player, player);
+
+        match_making_initial_player = address(0);
     }
 
     function endGame(address player, address winner) public {
@@ -55,19 +49,21 @@ contract TicTacToeStage12Contract {
         if (adversary_board.is_initiliazed) {
             
             if (player_board.potential_winner == adversary_board.potential_winner) {
-                player_board.winner = player_board.potential_winner;
-                adversary_board.winner = adversary_board.potential_winner;
 
-                emit GameCompleteEvent(adversary_board.winner);
+                emit GameCompleteEvent(adversary_board.potential_winner);
+
+                delete gameStates[player];
+                delete gameStates[adversary];
+
+                player_vs_player[player] = address(0);
+                player_vs_player[adversary] = address(0);
             } else {
                 revert();
             }
         }
     }
 
-    function getWinner() constant public returns(address) {
-        Board storage board = gameStates[msg.sender];
-        
-        return board.winner;
+    function markBox(uint index) public {
+        emit MarkBoxEvent(msg.sender, index);
     }
 }
